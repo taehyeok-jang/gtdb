@@ -1,7 +1,7 @@
 # gtdb
 
 gtdb is a toy relational database system built from scratch for educational purposes.  
-It implements core database system components such as external sorting, logging and recovery, and concurrency control — motivated by [BuzzDB](https://buzzdb-docs.readthedocs.io/index.html).
+It implements core database system components such as external sorting, logging and recovery, concurrency control, and query optimization — motivated by [BuzzDB](https://buzzdb-docs.readthedocs.io/index.html).
 
 # Features
 
@@ -29,6 +29,14 @@ gtdb implements concurrency control using **two-phase locking (2PL)** and **dead
 - Each transaction acquires shared or exclusive locks on records or pages as needed.
 - The system enforces lock compatibility and supports lock upgrades.
 - Deadlocks are detected via a timeout, and resolved by aborting victim transactions.
+
+## Query Optimizer
+
+A cost-based query optimizer motivated by [Selinger-style Optimizer](https://courses.cs.duke.edu/spring03/cps216/papers/selinger-etal-1979.pdf), using selectivity estimation and dynamic programming. 
+
+- Table stats allow to estimate predicate selectivities and cost of scans, built on bucket-based histograms.
+- Join cardinality and cost, for equality joins or range scan / inequality joins. 
+- Join order optimization using dynamic programming and cost estimation. 
 
 
 # Resources
